@@ -1,0 +1,9 @@
+.current-page {
+  color: red;
+}
+
+select {
+  appearance: none; /* Remove default arrow */
+  background: inherit;
+  border-style: none;
+}
