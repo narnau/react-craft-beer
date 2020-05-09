@@ -4,6 +4,12 @@ import {
   CHANGE_MIN_FIRST_BREWED_FILTER,
   CHANGE_MAX_FIRST_BREWED_FILTER,
 } from "../actions/actionTypes";
+import {
+  parseStringToDate,
+  parseStringArrayToDateArray,
+  getMinDate,
+  getMaxDate,
+} from "../utils/dateUtils";
 
 const initialState = {
   beers: [],
@@ -133,33 +139,11 @@ const getFilteredBeers = (minDate, maxDate, beers) => {
 };
 
 const getFirstBrewedMinDate = (firstBrewedDates) => {
-  return minDate(firstBrewedDates);
+  let datesArray = parseStringArrayToDateArray(firstBrewedDates);
+  return getMinDate(datesArray);
 };
 
 const getFirstBrewedMaxDate = (firstBrewedDates) => {
-  return maxDate(firstBrewedDates);
+  let datesArray = parseStringArrayToDateArray(firstBrewedDates);
+  return getMaxDate(datesArray);
 };
-
-const parseStringToDate = (dateString) => {
-  return new Date(dateString.split("/")[1], dateString.split("/")[0] - 1);
-};
-
-function minDate(allDates) {
-  let minDateObj = parseStringToDate(allDates[0]);
-  allDates.forEach(function (dt) {
-    if (parseStringToDate(dt) < minDateObj) {
-      minDateObj = parseStringToDate(dt);
-    }
-  });
-  return minDateObj;
-}
-
-function maxDate(allDates) {
-  let maxDateObj = parseStringToDate(allDates[0]);
-  allDates.forEach(function (dt) {
-    if (parseStringToDate(dt) > maxDateObj) {
-      maxDateObj = parseStringToDate(dt);
-    }
-  });
-  return maxDateObj;
-}

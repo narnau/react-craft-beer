@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "./Dropdown";
 import RoundedContainer from "./RoundedContainer";
+import { createDate } from "../utils/dateUtils";
 
 const DateSelector = ({
   monthsDataSource,
@@ -18,10 +19,6 @@ const DateSelector = ({
 
   const yearChanged = (e) => {
     onChange(createDate(e.target.value, currentDate.getMonth()));
-  };
-
-  const createDate = (year, month) => {
-    return new Date(year, month);
   };
 
   return (

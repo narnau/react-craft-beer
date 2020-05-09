@@ -1,4 +1,5 @@
 import React from "react";
+import { truncateString, getNumberOfWords } from "../utils/stringUtils";
 
 const BeerCard = ({ beer }) => {
   const divStyle = {
@@ -9,24 +10,22 @@ const BeerCard = ({ beer }) => {
     backgroundPosition: "right center",
   };
 
-  const divideStringInWords = (str) => {
-    return str.split(" ");
-  };
-  const getTruncatedDescription = (description, numberOfWords) => {
-    let splitString = divideStringInWords(description);
-    if (splitString.length > numberOfWords) {
-      return splitString.splice(0, numberOfWords).join(" ") + "...";
+  const truncateDescription = (description, maxDescriptionWords) => {
+    if (getNumberOfWords(beer.description) > maxDescriptionWords) {
+      return (description =
+        truncateString(beer.description, maxDescriptionWords) + "...");
+    } else {
+      description = beer.description;
     }
-    return description;
   };
 
-  let truncatedDescription = getTruncatedDescription(beer.description, 20);
+  let description = truncateDescription(beer.description, 20);
 
   return (
     <div className="text-white card beer-card" style={divStyle}>
       <h5 className="card-title">{beer.name}</h5>
       <p className="card-text">{beer.tagline}</p>
-      <p className="card-text">{truncatedDescription}</p>
+      <p className="card-text">{description}</p>
     </div>
   );
 };

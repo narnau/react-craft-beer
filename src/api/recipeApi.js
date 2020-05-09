@@ -1,4 +1,4 @@
-import { http } from "./apiUtils";
+import { http } from "../utils/apiUtils";
 
 const baseUrl = "https://api.punkapi.com/v2/beers";
 
