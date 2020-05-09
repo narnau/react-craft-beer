@@ -1,9 +1,51 @@
 .current-page {
-  color: red;
+  background: #444242 !important;
 }
 
 select {
-  appearance: none; /* Remove default arrow */
   background: inherit;
   border-style: none;
+}
+
+.beers-wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  row-gap: 20px;
+  column-gap: 20px;
+}
+
+.beers-container {
+  height: 450px;
+}
+
+.circle {
+  background: #818181;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.paginationButton {
+  border: none;
+  background: none;
+}
+
+.beer-card {
+  background-color: #8c9094 !important;
+  height: 200px;
+}
+
+.pagination-panel {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.filter-panel {
+  margin-left: 15%;
+  margin-right: 15%;
 }

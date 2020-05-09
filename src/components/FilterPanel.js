@@ -5,6 +5,7 @@ import {
   changeMinFirstBrewedFilter,
   changeMaxFirstBrewedFilter,
 } from "../actions/actions";
+import RoundedContainer from "./RoundedContainer";
 
 const FilterPanel = ({
   minDate,
@@ -51,20 +52,37 @@ const FilterPanel = ({
   };
 
   return (
-    <div>
-      <DateSelector
-        monthsDataSource={monthsDataSource}
-        yearsDataSource={yearsDataSource}
-        currentDate={firstBrewedFilter.minDate}
-        onChange={handleChangeMinDate}
-      ></DateSelector>
-      <DateSelector
-        monthsDataSource={monthsDataSource}
-        yearsDataSource={yearsDataSource}
-        currentDate={firstBrewedFilter.maxDate}
-        onChange={handleChangeMaxDate}
-      ></DateSelector>
-    </div>
+    <RoundedContainer
+      backgroundColor="#efefef"
+      className="filter-panel text-center"
+    >
+      <div className="row p-3">
+        <RoundedContainer backgroundColor="#DFDFDF" className="col3 p-1 mx-2">
+          <span>Brewed between</span>
+        </RoundedContainer>
+        <div className="col-4">
+          <DateSelector
+            monthsDataSource={monthsDataSource}
+            yearsDataSource={yearsDataSource}
+            currentDate={firstBrewedFilter.minDate}
+            onChange={handleChangeMinDate}
+            backgroundColor="#DFDFDF"
+          ></DateSelector>
+        </div>
+        <RoundedContainer backgroundColor="#DFDFDF" className="col-1 p-1 mx-2">
+          <span>and</span>
+        </RoundedContainer>
+        <div className="col-4">
+          <DateSelector
+            monthsDataSource={monthsDataSource}
+            yearsDataSource={yearsDataSource}
+            currentDate={firstBrewedFilter.maxDate}
+            onChange={handleChangeMaxDate}
+            backgroundColor="#DFDFDF"
+          ></DateSelector>
+        </div>
+      </div>
+    </RoundedContainer>
   );
 };
 

@@ -1,11 +1,13 @@
 import React from "react";
 import Dropdown from "./Dropdown";
+import RoundedContainer from "./RoundedContainer";
 
 const DateSelector = ({
   monthsDataSource,
   yearsDataSource,
   currentDate,
   onChange,
+  backgroundColor,
 }) => {
   let month = currentDate ? currentDate.getMonth() + 1 : "";
   let year = currentDate ? currentDate.getFullYear() : "";
@@ -23,18 +25,28 @@ const DateSelector = ({
   };
 
   return (
-    <>
-      <Dropdown
-        dataSource={monthsDataSource}
-        value={month}
-        onChange={(e) => monthChanged(e)}
-      ></Dropdown>
-      <Dropdown
-        dataSource={yearsDataSource}
-        value={year}
-        onChange={(e) => yearChanged(e)}
-      ></Dropdown>
-    </>
+    <div className="row">
+      <RoundedContainer
+        backgroundColor={backgroundColor}
+        className="col-6 py-1"
+      >
+        <Dropdown
+          dataSource={monthsDataSource}
+          value={month}
+          onChange={(e) => monthChanged(e)}
+        ></Dropdown>
+      </RoundedContainer>
+      <RoundedContainer
+        backgroundColor={backgroundColor}
+        className="col-6 py-1"
+      >
+        <Dropdown
+          dataSource={yearsDataSource}
+          value={year}
+          onChange={(e) => yearChanged(e)}
+        ></Dropdown>
+      </RoundedContainer>
+    </div>
   );
 };
 

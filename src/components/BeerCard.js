@@ -23,7 +23,7 @@ const BeerCard = ({ beer }) => {
   let truncatedDescription = getTruncatedDescription(beer.description, 20);
 
   return (
-    <div className="card bg-dark text-white" style={divStyle}>
+    <div className="text-white card beer-card" style={divStyle}>
       <h5 className="card-title">{beer.name}</h5>
       <p className="card-text">{beer.tagline}</p>
       <p className="card-text">{truncatedDescription}</p>
