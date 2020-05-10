@@ -4,10 +4,9 @@ const RoundedContainer = (props) => {
   let style = {
     backgroundColor: props.backgroundColor,
   };
-  let ownClasses = " rounded-pill";
-  let classNames = props.className ? props.className + ownClasses : ownClasses;
+  let className = "rounded-pill " + props.className;
   return (
-    <div className={classNames} style={style}>
+    <div className={className} style={style}>
       <>{props.children}</>
     </div>
   );

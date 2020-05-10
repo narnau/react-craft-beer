@@ -28,23 +28,22 @@ const initialState = {
 };
 
 export default function beersReducer(state = initialState, action) {
-  let filteredBeers, totalPages, totalFilteredBeers, minDate, maxDate;
+  let filteredBeers;
 
   switch (action.type) {
     case LOAD_BEERS_SUCCEEDED:
-      totalFilteredBeers = action.payload.length;
-      totalPages = Math.ceil(totalFilteredBeers / state.beersPerPage);
+      let totalFilteredBeers = action.payload.length;
       let firstBrewedDates = action.payload.map(
         ({ first_brewed }) => first_brewed
       );
-      minDate = getFirstBrewedMinDate(firstBrewedDates);
-      maxDate = getFirstBrewedMaxDate(firstBrewedDates);
+      let minDate = getFirstBrewedMinDate(firstBrewedDates);
+      let maxDate = getFirstBrewedMaxDate(firstBrewedDates);
       return {
         ...state,
         beers: [...action.payload],
         filteredBeers: [...action.payload],
         totalFilteredBeers: totalFilteredBeers,
-        totalPages: totalPages,
+        totalPages: getTotalPages(totalFilteredBeers, state.beersPerPage),
         currentBeers: getCurrentBeers(
           state.currentPage,
           state.beersPerPage,
@@ -73,18 +72,12 @@ export default function beersReducer(state = initialState, action) {
         state.firstBrewedFilter.maxDate,
         state.beers
       );
-      totalFilteredBeers = filteredBeers.length;
-      if (totalFilteredBeers > 0) {
-        totalPages = Math.ceil(totalFilteredBeers / state.beersPerPage);
-      } else {
-        totalPages = 0;
-      }
 
       return {
         ...state,
         currentPage: 1,
-        totalFilteredBeers: totalFilteredBeers,
-        totalPages: totalPages,
+        totalFilteredBeers: filteredBeers.length,
+        totalPages: getTotalPages(filteredBeers.length, state.beersPerPage),
         filteredBeers: filteredBeers,
         currentBeers: getCurrentBeers(1, state.beersPerPage, filteredBeers),
         firstBrewedFilter: {
@@ -98,18 +91,11 @@ export default function beersReducer(state = initialState, action) {
         action.payload,
         state.beers
       );
-      totalFilteredBeers = filteredBeers.length;
-      if (totalFilteredBeers > 0) {
-        totalPages = Math.ceil(totalFilteredBeers / state.beersPerPage);
-      } else {
-        totalPages = 0;
-      }
-
       return {
         ...state,
         currentPage: 1,
-        totalFilteredBeers: totalFilteredBeers,
-        totalPages: totalPages,
+        totalFilteredBeers: filteredBeers.length,
+        totalPages: getTotalPages(filteredBeers.length, state.beersPerPage),
         filteredBeers: filteredBeers,
         currentBeers: getCurrentBeers(1, state.beersPerPage, filteredBeers),
         firstBrewedFilter: {
@@ -121,6 +107,13 @@ export default function beersReducer(state = initialState, action) {
       return state;
   }
 }
+
+const getTotalPages = (totalBeers, beersPerPage) => {
+  if (totalBeers > 0) {
+    return Math.ceil(totalBeers / beersPerPage);
+  }
+  return 0;
+};
 
 const getCurrentBeers = (currentPage, beersPerPage, beersList) => {
   const indexOfLastBeer = currentPage * beersPerPage;

@@ -2,6 +2,7 @@ import React from "react";
 import RoundedContainer from "./RoundedContainer";
 import { connect } from "react-redux";
 import { loadNewPage } from "../actions/actions";
+import PageNumberButton from "./PageNumberButton";
 
 const PaginationPanel = ({ currentPage, totalPages, loadNewPage }) => {
   // Logic for displaying page numbers
@@ -9,7 +10,7 @@ const PaginationPanel = ({ currentPage, totalPages, loadNewPage }) => {
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  const handleClick = (event, newPageNumber) => {
+  const handleNumberClick = (event, newPageNumber) => {
     loadNewPage(newPageNumber);
   };
 
@@ -56,18 +57,14 @@ const PaginationPanel = ({ currentPage, totalPages, loadNewPage }) => {
         </button>
       </div>
       <div className="d-flex justify-content-center w-100">
-        {pageNumbers.map((number) => {
+        {pageNumbers.map((number, idx) => {
           return (
-            <button
-              key={number}
-              id={number}
-              onClick={(e) => handleClick(e, number)}
-              className={
-                isCurrentPage(number) ? "current-page circle m-1" : "circle m-1"
-              }
-            >
-              {number}
-            </button>
+            <PageNumberButton
+              key={idx}
+              number={number}
+              className={isCurrentPage(number) ? "current-page" : ""}
+              onClick={handleNumberClick}
+            ></PageNumberButton>
           );
         })}
       </div>

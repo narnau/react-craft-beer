@@ -12,20 +12,18 @@ const BeerCard = ({ beer }) => {
 
   const truncateDescription = (description, maxDescriptionWords) => {
     if (getNumberOfWords(beer.description) > maxDescriptionWords) {
-      return (description =
-        truncateString(beer.description, maxDescriptionWords) + "...");
-    } else {
-      description = beer.description;
+      return truncateString(beer.description, maxDescriptionWords) + "...";
     }
+    return beer.description;
   };
-
-  let description = truncateDescription(beer.description, 20);
 
   return (
     <div className="text-white card beer-card" style={divStyle}>
       <h5 className="card-title">{beer.name}</h5>
       <p className="card-text">{beer.tagline}</p>
-      <p className="card-text">{description}</p>
+      <p className="card-text text-justify">
+        {truncateDescription(beer.description, 20)}
+      </p>
     </div>
   );
 };

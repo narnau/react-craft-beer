@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DateSelector from "./DateSelector";
 import { connect } from "react-redux";
 import {
@@ -14,14 +14,13 @@ const FilterPanel = ({
   changeMinFirstBrewedFilter,
   changeMaxFirstBrewedFilter,
 }) => {
-  const [monthsDataSource, setMonthsDataSource] = useState([]);
-  const [yearsDataSource, setYearsDataSource] = useState([]);
-
-  useEffect(() => {
-    setMonthsDataSource(createMonthsDataSource());
-    setYearsDataSource(createYearsDataSource(minDate, maxDate));
-    return () => {};
-  }, [minDate, maxDate]);
+  const createMonthsDataSource = () => {
+    const months = [];
+    for (let i = 1; i <= 12; i++) {
+      months.push(i);
+    }
+    return months;
+  };
 
   const createYearsDataSource = (minDate, maxDate) => {
     const years = [];
@@ -35,21 +34,8 @@ const FilterPanel = ({
     return years;
   };
 
-  const createMonthsDataSource = () => {
-    const months = [];
-    for (let i = 1; i <= 12; i++) {
-      months.push(i);
-    }
-    return months;
-  };
-
-  const handleChangeMaxDate = (newMaxDate) => {
-    changeMaxFirstBrewedFilter(newMaxDate);
-  };
-
-  const handleChangeMinDate = (newMinDate) => {
-    changeMinFirstBrewedFilter(newMinDate);
-  };
+  let monthsDataSource = createMonthsDataSource();
+  let yearsDataSource = createYearsDataSource(minDate, maxDate);
 
   return (
     <RoundedContainer
@@ -65,7 +51,7 @@ const FilterPanel = ({
             monthsDataSource={monthsDataSource}
             yearsDataSource={yearsDataSource}
             currentDate={firstBrewedFilter.minDate}
-            onChange={handleChangeMinDate}
+            onChange={(newMinDate) => changeMinFirstBrewedFilter(newMinDate)}
             backgroundColor="#DFDFDF"
           ></DateSelector>
         </div>
@@ -77,7 +63,7 @@ const FilterPanel = ({
             monthsDataSource={monthsDataSource}
             yearsDataSource={yearsDataSource}
             currentDate={firstBrewedFilter.maxDate}
-            onChange={handleChangeMaxDate}
+            onChange={(newMaxDate) => changeMaxFirstBrewedFilter(newMaxDate)}
             backgroundColor="#DFDFDF"
           ></DateSelector>
         </div>

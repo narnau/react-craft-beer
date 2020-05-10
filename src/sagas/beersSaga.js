@@ -11,13 +11,12 @@ function* fetchBeers() {
     const action = loadBeersSucceeded(beers);
     yield put(action);
   } catch (e) {
-    // yield put({ type: "USER_FETCH_FAILED", message: e.message });
-    console.log("error");
+    console.log("error", e);
   }
 }
 
 /*
-  Starts fetchBeer on each dispatched `USER_FETCH_REQUESTED` action.
+  Starts fetchBeer on each dispatched `LOAD_BEERS_REQUESTED` action.
 */
 function* beersSaga() {
   yield takeEvery(LOAD_BEERS_REQUESTED, fetchBeers);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import RoundedContainer from "./RoundedContainer";
 import { createDate } from "../utils/dateUtils";
@@ -10,8 +10,15 @@ const DateSelector = ({
   onChange,
   backgroundColor,
 }) => {
-  let month = currentDate ? currentDate.getMonth() + 1 : "";
-  let year = currentDate ? currentDate.getFullYear() : "";
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+
+  useEffect(() => {
+    if (currentDate !== null) {
+      setMonth(currentDate.getMonth() + 1);
+      setYear(currentDate.getFullYear());
+    }
+  }, [currentDate]);
 
   const monthChanged = (e) => {
     onChange(createDate(currentDate.getFullYear(), e.target.value - 1));
