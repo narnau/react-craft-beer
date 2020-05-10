@@ -19,7 +19,9 @@ const BeerCard = ({ beer }) => {
 
   return (
     <div className="text-white card beer-card" style={divStyle}>
-      <h5 className="card-title">{beer.name}</h5>
+      <h5 data-testid="" className="card-title">
+        {beer.name}
+      </h5>
       <p className="card-text">{beer.tagline}</p>
       <p className="card-text text-justify">
         {truncateDescription(beer.description, 20)}
